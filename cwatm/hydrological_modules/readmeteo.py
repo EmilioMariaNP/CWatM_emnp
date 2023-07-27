@@ -816,4 +816,27 @@ class readmeteo(object):
             #self.var.Tavg_all.append(self.var.Tavg)
             #self.var.Precipitation_all.append(self.var.Precipitation)
             ii =1
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 

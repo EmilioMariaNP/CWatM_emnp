@@ -29,6 +29,61 @@ from osgeo import gdal
 from osgeo import osr
 from osgeo import gdalconst
 import warnings
+import joblib
+import json
+
+def load_json(json_file):
+    '''
+    Reads a json file and converts it into a python dict.
+    :param: json_file, str, path to the json file to be read
+    :return: dict, python 
+    '''
+
+    with open(json_file) as json_config:
+        config = json_config.read()
+      
+    config = json.loads(config)     
+    return config
+
+def load_scikit_model(in_file):
+    '''
+    Loads a pre-trained scikit model from a file.
+    
+    :param: in_file, str, path of the scikit model file
+    :return: scikit model
+    '''
+    try:
+        scimodel = joblib.load(in_file)
+        print(f'Scikit model loaded from {in_file}')
+        return scimodel
+    except Exception as e:
+        print(e)
+        
+def ml_predict(ml_model, data_dict):
+    '''
+    Predicts a variable using the argument scikit model.
+    
+    :param: ml_model: scikit model
+    :param: data_dict, dict, keys are the name of the features (i.e. predictors), values are the 2d array values of the predictors
+    :return: pred, array, predicted scikit model values
+    '''
+    
+    #get 2d inputs arrays shape
+    shape = list(data_dict.values())[0].shape
+    
+    #convert 2d arrays to 1d 
+    for pred_var, data in data_dict.items():
+        data_dict[pred_var] = data.flatten()
+    
+    df = pd.DataFrame(data_dict)
+    pred = ml_model.predict(df)
+    
+    #reconvert to 2d array
+    pred = pred.reshape(shape)
+    
+    return pred
+
+
 
 def valuecell( coordx, coordstr, returnmap = True):
     """

@@ -32,6 +32,7 @@ from cwatm.hydrological_modules.environflow import environflow
 from cwatm.hydrological_modules.routing_reservoirs.routing_kinematic import routing_kinematic
 from cwatm.hydrological_modules.lakes_reservoirs import lakes_reservoirs
 from cwatm.hydrological_modules.waterquality1 import waterquality1
+from cwatm.hydrological_modules.stats_models import StatsModels
 
 from cwatm.management_modules.output import *
 from cwatm.management_modules.data_handling import *
@@ -104,6 +105,7 @@ class CWATModel_ini(DynamicModel):
         self.misc_module = miscInitial(self)
         self.init_module = initcondition(self)
         self.waterbalance_module = waterbalance(self)
+        self.stats_models_module = StatsModels(self)
         self.readmeteo_module = readmeteo(self)
         self.environflow_module = environflow(self)
         self.evaporationPot_module = evaporationPot(self)
@@ -142,6 +144,9 @@ class CWATModel_ini(DynamicModel):
         # run intial misc to get all global variables
         self.misc_module.initial()
         self.init_module.initial()
+
+        #TODO: move after readmeteo
+        self.stats_models_module.load_stats_models()
 
         self.readmeteo_module.initial()
         self.inflow_module.initial()
