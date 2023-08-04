@@ -161,7 +161,7 @@ def parse_configuration(settingsFileName):
             outsection.append(sec)
 
     outputDir.append(binding["PathOut"])
-     # Output directory is stored in a separat global array
+    # Output directory is stored in a separat global array
 
 
 def read_metanetcdf(metaxml, name):

@@ -1,0 +1,20 @@
+{
+   "ml_models":[
+      {
+         "name":"ml_eto",
+         "cwatm_var":"EWRef",
+         "predict_var":"delta",
+         "predict_temporal_step":"month",
+         "ml_file":"./scikit_models/v_penman_delta_rf_model.joblib",
+         "predictors":[
+            "tas",
+            "rsds"
+         ],
+         "predictors_cwat_mapping":{
+            "tas":"Tavg",
+            "rsds":"Rsds"
+         }
+      }
+   ]
+}
+

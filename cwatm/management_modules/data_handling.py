@@ -385,7 +385,7 @@ def loadmap(name, lddflag=False,compress = True, local = False, cut = True):
 
     if not load:   # read a netcdf  (single one not a stack)
         filename = os.path.splitext(value)[0] + '.nc'
-         # get mapextend of netcdf map and calculate the cutting
+        # get mapextend of netcdf map and calculate the cutting
         #cut0, cut1, cut2, cut3 = mapattrNetCDF(filename)
 
         try:

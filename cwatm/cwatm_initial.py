@@ -145,9 +145,6 @@ class CWATModel_ini(DynamicModel):
         self.misc_module.initial()
         self.init_module.initial()
 
-        #TODO: move after readmeteo
-        self.stats_models_module.load_stats_models()
-
         self.readmeteo_module.initial()
         self.inflow_module.initial()
 
@@ -175,6 +172,10 @@ class CWATModel_ini(DynamicModel):
 
         self.waterdemand_module.initial()
         self.waterbalance_module.initial()
+        
+        #load ml models
+        self.stats_models_module.load_stats_models()
+        
         # calculate initial amount of water in the catchment
 
         self.output_module.initial()

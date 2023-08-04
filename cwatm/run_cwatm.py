@@ -66,6 +66,11 @@ if "modflow_coupling" in option:
 #import xlrd
 #import openpyxl
 
+
+#os.environ['PROJ_LIB'] = '/home/politti/anaconda3/envs/geo_env/share/proj'
+
+
+
 # ---------------------------
 
 

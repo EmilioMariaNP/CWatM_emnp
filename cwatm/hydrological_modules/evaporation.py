@@ -118,6 +118,22 @@ class evaporation(object):
 
         # calculate potential bare soil evaporation - only once
         if No == 0:
+            
+            #apply machine learning trained model to crop correction
+            if(hasattr(self.model, 'ml_eto')):
+                ml_eto = self.model.ml_eto
+                predictors_cwat_mapping = ml_eto['predictors_cwat_mapping'] #dic mapping the cwatm variables names to the ml model variables names (e.g. tas : Tavg)
+            
+                for k, v in predictors_cwat_mapping.items():
+                    cw_var = getattr(self.var, v) #retrieve the cwatm variable
+                    ml_eto['pred_vars'][k] = cw_var
+            
+                x_factor = self.model.stats_models_module.calculate_x_factor(ml_eto['ml_model'], ml_eto['pred_vars'], self.var.ETRef)
+                self.var.cropCorrect = self.var.cropCorrect * x_factor
+            
+            
+            
+            
             self.var.potBareSoilEvap = self.var.cropCorrect * self.var.minCropKC * self.var.ETRef
             # calculate snow and ice evaporation
             self.var.snowEvap = np.minimum(self.var.SnowMelt, self.var.potBareSoilEvap)

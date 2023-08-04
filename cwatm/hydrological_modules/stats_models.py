@@ -6,6 +6,7 @@ Created on Jul 27, 2023
 from cwatm.management_modules.data_handling import cbinding, load_json, load_scikit_model, CWATMFileError
 from glob import glob
 import os
+import pandas as pd
 
 class StatsModels(object):
     '''
@@ -41,6 +42,7 @@ class StatsModels(object):
             #load the ml model
             model_file = m['ml_file']
             m_name = m['name']
+            print(f'Loading {model_file} for {m_name}...')
             m['ml_model'] = load_scikit_model(model_file)
             print(f'{model_file} loaded for {m_name}')
             
@@ -51,13 +53,49 @@ class StatsModels(object):
                 
             m['pred_vars'] = pred_vars_dict
             
-            self.var[m_name] = m
+            #self.var[m_name] = m
+            setattr(self.model, m_name, m)
         
+    def scikit_predict(self, scikit_model, data_dict):
+        '''
+        Applies a scikit prediction model using 2d shaped predictors.
+        @param scikit_model, scikit regression model: trained sci kit model (must have function predict).
+        @param data_dict, dict: keys are the name of the predictors, values the predictors' data. Predictors
+                                names must match the names used as predictor variables when the scikit model
+                                was trained.
+        @returns numpy array of the predicted variable.
+        '''
+        #convert 2d arrays to 1d 
+        for pred_var, data in data_dict.items():
+            data_dict[pred_var] = data.flatten()
         
+        df = pd.DataFrame(data_dict)
+        pred = scikit_model.predict(df)
         
+        #reconvert to 2d array
+        shape = data_dict.values()[0].shape
+        pred = pred.reshape(shape)
         
+        return pred
         
+    def calculate_x_factor(self, scikit_model, data_dict, cwatm_var):
+        '''
+        Applies a scikit prediction model using 2d shaped predictors and computes a correction factor to be applied 
+        to the cwatm variable
+        @param scikit_model, scikit regression model: trained sci kit model (must have function predict).
+        @param data_dict, dict: keys are the name of the predictors, values the predictors' data. Predictors
+                                names must match the names used as predictor variables when the scikit model
+                                was trained.        
+        @param cwatm_var, array: variable simulated by cwatm
+        @param array: correction factor for cwatm variable.
         
+        '''
+        pred = self.scikit_predict(scikit_model, data_dict)
+        
+        x = 1 - (pred/cwatm_var)
+        
+        return x
+    
         
         
         
