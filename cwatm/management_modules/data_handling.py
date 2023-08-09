@@ -31,6 +31,7 @@ from osgeo import gdalconst
 import warnings
 import joblib
 import json
+import pandas as pd
 
 def load_json(json_file):
     '''
@@ -1367,7 +1368,7 @@ def writenetcdf(netfile,prename,addname,varunits,inputmap, timeStamp, posCnt, fl
         # put the additional genaral meta data information from the xml file into the netcdf file
         # infomation from the settingsfile comes first
         if prename in metaNetcdfVar:
-           for key in metaNetcdfVar[prename]:
+            for key in metaNetcdfVar[prename]:
                 if not (key in list(nf1.__dict__.keys())):
                     if not (key in ["unit", "long_name", "standard_name"]):
                         nf1.__setattr__(key, metaNetcdfVar[prename][key])

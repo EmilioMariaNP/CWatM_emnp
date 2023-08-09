@@ -10,7 +10,7 @@ import pandas as pd
 
 class StatsModels(object):
     '''
-    Hanldes the loading of statistical models from saved files and the creation of the data needed to feed the models
+    Handles the loading of statistical models from saved files and the creation of the data needed to feed the models
     and create predictions during the cwatm execution.
     '''
 
@@ -65,6 +65,7 @@ class StatsModels(object):
                                 was trained.
         @returns numpy array of the predicted variable.
         '''
+        shape = list(data_dict.values())[0].shape
         #convert 2d arrays to 1d 
         for pred_var, data in data_dict.items():
             data_dict[pred_var] = data.flatten()
@@ -73,7 +74,6 @@ class StatsModels(object):
         pred = scikit_model.predict(df)
         
         #reconvert to 2d array
-        shape = data_dict.values()[0].shape
         pred = pred.reshape(shape)
         
         return pred

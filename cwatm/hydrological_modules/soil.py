@@ -9,6 +9,7 @@
 # -------------------------------------------------------------------------
 
 from cwatm.management_modules.data_handling import *
+from cwtm.module_tester import CwatMTestModule
 
 
 class soil(object):
@@ -139,6 +140,8 @@ class soil(object):
     def __init__(self, model):
         self.var = model.var
         self.model = model
+        
+        self.cwatMTestModule = CwatMTestModule(model)
 
     def initial(self):
         """
@@ -740,6 +743,9 @@ class soil(object):
 
         # total actual evaporation + transpiration
         self.var.actualET[No] = self.var.actualET[No] + self.var.actBareSoilEvap[No] + self.var.openWaterEvap[No] + self.var.actTransTotal[No]
+        
+        self.cwatMTestModule.test_et_x_factor()
+        
         #  actual evapotranspiration can be bigger than pot, because openWater is taken from pot open water evaporation, therefore self.var.totalPotET[No] is adjusted
         self.var.totalPotET[No] = np.maximum(self.var.totalPotET[No], self.var.actualET[No])
         # groundwater recharge
