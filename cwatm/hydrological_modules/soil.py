@@ -9,7 +9,7 @@
 # -------------------------------------------------------------------------
 
 from cwatm.management_modules.data_handling import *
-from cwtm.module_tester import CwatMTestModule
+#from cwtm.module_tester import CwatMTestModule
 
 
 class soil(object):
@@ -141,7 +141,7 @@ class soil(object):
         self.var = model.var
         self.model = model
         
-        self.cwatMTestModule = CwatMTestModule(model)
+        #self.cwatMTestModule = CwatMTestModule(model)
 
     def initial(self):
         """
