@@ -71,7 +71,8 @@ class evaporationPot(object):
         """
 
         #self.var.sumETRef = globals.inZero.copy()
-        self.var.cropCorrect = loadmap('crop_correct')
+        self.var.cropCorrect = loadmap('crop_correct') #this one will be modified using ML model for ET
+        self.var.base_cropCorrect = loadmap('crop_correct')
 
         if checkOption('calc_evaporation'):
 
