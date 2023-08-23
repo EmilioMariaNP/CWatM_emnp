@@ -744,7 +744,7 @@ class soil(object):
         # total actual evaporation + transpiration
         self.var.actualET[No] = self.var.actualET[No] + self.var.actBareSoilEvap[No] + self.var.openWaterEvap[No] + self.var.actTransTotal[No]
         
-        self.cwatMTestModule.test_et_x_factor()
+        #self.cwatMTestModule.test_et_x_factor()
         
         #  actual evapotranspiration can be bigger than pot, because openWater is taken from pot open water evaporation, therefore self.var.totalPotET[No] is adjusted
         self.var.totalPotET[No] = np.maximum(self.var.totalPotET[No], self.var.actualET[No])
