@@ -811,4 +811,5 @@
 <metanetcdf varname="travelTime" unit=""  standard_name="" long_name="" description=""  title="CWATM" author="IIASA WAT" />
 <metanetcdf varname="waterLevel" unit=""  standard_name="" long_name="" description=""  title="CWATM" author="IIASA WAT" />
 <metanetcdf varname="waterTemperature" unit=""  standard_name="" long_name="" description=""  title="CWATM" author="IIASA WAT" />
+<metanetcdf varname="ET_delta" unit="m"  standard_name="" long_name="delta_ET" description=""  title="CWATM" author="IIASA WAT" />
 </CWATM>

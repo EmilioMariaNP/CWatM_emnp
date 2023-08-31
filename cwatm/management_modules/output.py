@@ -434,6 +434,8 @@ class outputTssMap(object):
 
                         if map[-5:] == "daily":
                             outMap[map][i][2] = writenetcdf(netfile, varname,"", "undefined", eval(inputmap),  dateVar['currDate'],dateVar['currwrite'], flag, True, dateVar['diffdays'])
+                        
+                        
                         if map[-8:] == "monthend":
                             if dateVar['checked'][dateVar['currwrite'] - 1]>0:
                                 outMap[map][i][2] = writenetcdf(netfile, varname, "_monthend", "undefined", eval(inputmap),  dateVar['currDate'], dateVar['currMonth'], flag,True,dateVar['diffMonth'])

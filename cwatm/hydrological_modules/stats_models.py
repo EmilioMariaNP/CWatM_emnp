@@ -21,6 +21,9 @@ class StatsModels(object):
         '''
         self.model = model
         self.var = model.var
+        
+        #TODO: debug add delta to ET_delta
+        setattr(model.var, 'delta_ET', None)
     
     def load_stats_models(self):
         '''
@@ -90,10 +93,11 @@ class StatsModels(object):
         @param array: correction factor for cwatm variable.
         
         '''
-        pred = self.scikit_predict(scikit_model, data_dict)
+        pred = self.scikit_predict(scikit_model, data_dict)        
         
+        self.var.delta_ET = pred
         x = 1 - (pred/cwatm_var)
-        
+
         return x
     
         
