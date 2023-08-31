@@ -24,6 +24,7 @@ class StatsModels(object):
         
         #TODO: debug add delta to ET_delta
         setattr(model.var, 'delta_ET', None)
+        setattr(model.var, 'ET_mlCorrected', None)
     
     def load_stats_models(self):
         '''
@@ -96,6 +97,7 @@ class StatsModels(object):
         pred = self.scikit_predict(scikit_model, data_dict)        
         
         self.var.delta_ET = pred
+        self.var.ET_mlCorrected = self.var.totalET + self.var.delta_ET
         x = 1 - (pred/cwatm_var)
 
         return x
