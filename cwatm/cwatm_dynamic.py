@@ -149,6 +149,8 @@ class CWATModel_dyn(DynamicModel):
         # in case environmental flow is calculated last
 
         self.output_module.dynamic()
+        #TODO: debug
+        self.var.ET_mlCorrected = self.var.totalET + self.var.delta_ET
         timemeasure("Output")  # 12. timing
 
         self.init_module.dynamic()

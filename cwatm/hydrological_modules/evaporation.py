@@ -130,6 +130,7 @@ class evaporation(object):
                     ml_eto['pred_vars'][k] = cw_var
             
                 x_factor = self.model.stats_models_module.calculate_x_factor(ml_eto['ml_model'], ml_eto['pred_vars'], self.var.totalET)
+                #TODO: uncomment following line to activate correction
                 self.var.cropCorrect = self.var.base_cropCorrect * x_factor
             
             

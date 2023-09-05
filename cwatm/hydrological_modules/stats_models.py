@@ -7,6 +7,7 @@ from cwatm.management_modules.data_handling import cbinding, load_json, load_sci
 from glob import glob
 import os
 import pandas as pd
+import numpy as np
 
 class StatsModels(object):
     '''
@@ -97,8 +98,10 @@ class StatsModels(object):
         pred = self.scikit_predict(scikit_model, data_dict)        
         
         self.var.delta_ET = pred
-        self.var.ET_mlCorrected = self.var.totalET + self.var.delta_ET
+        #self.var.ET_mlCorrected = self.var.totalET + self.var.delta_ET
+        n0_mask = cwatm_var==0
         x = 1 - (pred/cwatm_var)
+        x = np.where(n0_mask, 1, x) #replace -inf division result
 
         return x
     
