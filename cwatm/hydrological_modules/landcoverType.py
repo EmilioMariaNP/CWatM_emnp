@@ -874,22 +874,7 @@ class landcoverType(object):
 
         self.var.sum_topwater = self.var.fracVegCover[2] * self.var.topwater
         self.var.totalET = self.var.sum_actTransTotal + self.var.sum_actBareSoilEvap + self.var.sum_openWaterEvap + self.var.sum_interceptEvap + self.var.snowEvap + self.var.iceEvap + self.var.addtoevapotrans
-        
-        #TODO: debug mlET 
-        if(hasattr(self.model, 'ml_eto')):
-            ml_eto = self.model.ml_eto
-            predictors_cwat_mapping = ml_eto['predictors_cwat_mapping'] #dic mapping the cwatm variables names to the ml model variables names (e.g. tas : Tavg)
-        
-            for k, v in predictors_cwat_mapping.items():
-                cw_var = getattr(self.var, v) #retrieve the cwatm variable
-                ml_eto['pred_vars'][k] = cw_var        
-        
-            _x_factor = self.model.stats_models_module.calculate_x_factor(ml_eto['ml_model'], ml_eto['pred_vars'], self.var.totalET)
-            self.var.ET_mlCorrected = self.var.totalET + self.var.delta_ET   
-        
-        
-        
-        
+              
         # addtoevapotrans: part of water demand which is lost due to evaporation
         self.var.sum_soil = self.var.sum_w1 + self.var.sum_w2 + self.var.sum_w3 + self.var.sum_topwater
         self.var.totalSto = self.var.SnowCover + self.var.sum_interceptStor + self.var.sum_soil
