@@ -132,10 +132,8 @@ class evaporation(object):
                 #TODO: uncomment following line to activate correction
                 #_x_factor = self.model.stats_models_module.calculate_x_factor(ml_eto['ml_model'], ml_eto['pred_vars'], self.var.totalET)
                 #self.var.cropCorrect = self.var.base_cropCorrect * x_factor
-            
-            
-            
-            
+
+       
             self.var.potBareSoilEvap = self.var.cropCorrect * self.var.minCropKC * self.var.ETRef
             # calculate snow and ice evaporation
             self.var.snowEvap = np.minimum(self.var.SnowMelt, self.var.potBareSoilEvap)

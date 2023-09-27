@@ -1,7 +1,30 @@
 {
    "ml_models":[
-      {
+       {
          "name":"ml_eto",
+         "cwatm_var":"EWRef",
+         "predict_var":"delta",
+         "predict_temporal_step":"day",
+         "ml_file":"./scikit_models/rf_130_nest_C.joblib",
+         "predictors":[
+            "rlds",
+            "rsds",
+            "ps"
+         ],
+         "predictors_cwat_mapping":{
+            "rlds":"Rsdl",
+            "rsds":"Rsds",
+            "ps": "Psurf"
+         },
+         "predictors_factor":{
+            "rlds": 10,
+            "rsds": 10,
+            "ps": 1
+         
+         }
+      },  
+      {
+         "name":"ml_eto_v0",
          "cwatm_var":"EWRef",
          "predict_var":"delta",
          "predict_temporal_step":"month",
@@ -15,6 +38,9 @@
             "rsds":"Rsds"
          }
       }
+      
    ]
 }
 
+
+            
